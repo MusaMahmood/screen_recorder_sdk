@@ -21,9 +21,7 @@ typedef enum
     JSON_ERROR
 } ExitCodes;
 
-extern "C"
-{
-    __declspec(dllexport) int __cdecl InitResources (char *paramsString);
+    __declspec(dllexport) int __cdecl InitResources (int pid, int desktopNum);
     __declspec(dllexport) int __cdecl GetScreenShot (
         unsigned int maxAttempts, unsigned char *frameBuffer, int *width, int *height);
     __declspec(dllexport) int __cdecl FreeResources ();
@@ -34,6 +32,5 @@ extern "C"
     __declspec(dllexport) int __cdecl StartVideoRecording (
         const char *outputFileName, int frameRate, int bitRate, int useHardwareTransform);
     __declspec(dllexport) int __cdecl StopVideoRecording ();
-}
 
 #endif

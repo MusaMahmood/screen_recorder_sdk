@@ -5,15 +5,10 @@
 #include "RecorderParams.h"
 #include "ScreenRecorder.h"
 
-#include "json.hpp"
-
-using json = nlohmann::json;
-
-
 Recorder *recorder = NULL;
 HANDLE mutex = NULL;
 
-int InitResources (char *paramsString)
+int InitResources (int pid, int desktopNum)
 {
     if (!mutex)
     {
@@ -30,16 +25,8 @@ int InitResources (char *paramsString)
     }
 
     struct RecorderParams params;
-    try
-    {
-        json config = json::parse (std::string (paramsString));
-        params.pid = config["pid"];
-        params.desktopNum = config["desktop_num"];
-    }
-    catch (json::exception &e)
-    {
-        return JSON_ERROR;
-    }
+    params.pid = pid;
+    params.desktopNum = desktopNum;
 
     recorder = new RecorderDDA (params);
     WaitForSingleObject (mutex, INFINITE);
