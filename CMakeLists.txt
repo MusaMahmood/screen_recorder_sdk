@@ -58,6 +58,7 @@ add_library (
     src/ScreenRecorder/RecorderDDA.cpp
     src/ScreenRecorder/MFEncoder.cpp
     src/Utils/HandleD3DWindow.cpp
+    src/VK_Sender.cpp
 )
 
 set (CMAKE_SHARED_LINKER_FLAGS "dwmapi.lib")
