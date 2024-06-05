@@ -32,6 +32,7 @@ typedef enum
     __declspec(dllexport) int __cdecl StartVideoRecording (
         const char *outputFileName, int frameRate, int bitRate, int useHardwareTransform);
     __declspec(dllexport) int __cdecl StopVideoRecording ();
-    __declspec(dllexport) int __cdecl VK_Send_Numpad1 (int __INPUT_VK_KEY);
-
+    __declspec(dllexport) int __cdecl VK_Send_Keystroke (int __INPUT_VK_KEY);
+    __declspec(dllexport) void __cdecl CropImage(char* input_buffer, int left_corner_x, int left_corner_y, int right_corner_x,
+                int right_corner_y, int width, int height, char* output_buffer, int* new_width, int* new_height);
 #endif

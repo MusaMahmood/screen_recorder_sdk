@@ -3,7 +3,28 @@
 #include <windows.h>
 #include "ScreenRecorder.h"
 
-int VK_Send_Numpad1 (int __INPUT_VK_KEY) {
+constexpr int frame_color_depth = 4;
+
+void CropImage(
+    char* input_buffer, 
+    int left_corner_x,  int left_corner_y, 
+    int right_corner_x, int right_corner_y,
+    int width, int height, 
+    char* output_buffer, 
+    int* new_width, int* new_height) {
+    
+    (*new_width) = right_corner_x - left_corner_x;
+    (*new_height) = right_corner_y - left_corner_y;
+    int row_pitch = width * frame_color_depth;
+    
+    for (int i {0}; i < (*new_height); i++) {
+        int output_cursor = i * (*new_width) * frame_color_depth;
+        int input_cursor = (left_corner_y + i) * row_pitch + (left_corner_x * frame_color_depth);
+        memcpy(&output_buffer[output_cursor], &input_buffer[input_cursor], (*new_width) * frame_color_depth);
+    }
+}
+
+int VK_Send_Keystroke (int __INPUT_VK_KEY) {
     // #Source: https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendinput?redirectedfrom=MSDN
     // Create an array of INPUT structures
     INPUT inputs[2] = {};
